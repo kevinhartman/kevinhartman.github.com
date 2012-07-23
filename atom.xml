@@ -4,7 +4,7 @@
   <title><![CDATA[kevin hartman]]></title>
   <link href="http://kevinhartman.github.com/atom.xml" rel="self"/>
   <link href="http://kevinhartman.github.com/"/>
-  <updated>2012-07-23T02:36:59-07:00</updated>
+  <updated>2012-07-23T02:38:11-07:00</updated>
   <id>http://kevinhartman.github.com/</id>
   <author>
     <name><![CDATA[Kevin Hartman]]></name>
@@ -34,7 +34,7 @@
 
 <p>That sounds fine and easy. But it&#8217;s a bit less intuitive than that, which maybe you&#8217;ve realized (and, as a result, stumbled your way here). The natural approach is to just <em>have the setStrategy method accept a subclassable class</em>. This is correct, but won&#8217;t get you up and running. The trouble is teardown and reconstruction of the concrete implementation at runtime prior to and following IPC, respectively. You need to get all of the custom instance data held by the concrete implementation prior to IPC, save it in the Parcel (that you&#8217;ll get back after IPC), and then <em>choose the correct class to instantiate following IPC</em>.</p>
 
-<p>When I first encountered this need, my solution was to create <a href="http://kevinhartman.github.com/simple-aidl-objects/">Simple AIDL Objects</a>, a research project I&#8217;ve open-sourced to my GitHub. It handles all of that stuff for you, but does so in a way that uses non-standard reflection to do evil things (that you shouldn&#8217;t do unless you&#8217;re the DalvikVM). That said you <em>shouldn&#8217;t use it</em> in production code. I&#8217;d love for you to take a look at the source code, because it&#8217;s pretty cool, but please don&#8217;t use it in your production code ;)</p>
+<p>When I first encountered this need, my not-so-great solution was to create <a href="http://kevinhartman.github.com/simple-aidl-objects/">Simple AIDL Objects</a>, a research project I&#8217;ve open-sourced to my GitHub. It handles all of that stuff for you, but does so in a way that uses non-standard reflection to do evil things (that you shouldn&#8217;t do unless you&#8217;re the DalvikVM). That said you <em>shouldn&#8217;t use it</em> in production code. I&#8217;d love for you to take a look at the source code, because it&#8217;s pretty cool, but please don&#8217;t use it in your production code ;)</p>
 
 <p>After I&#8217;d finished creating that solution, I realized that java has this wonderful (sort of) thing called <em>serialization</em>. Using serialization, you can completely avoid the need to do evil things with reflection. That&#8217;s what this solution will demonstrate.</p>
 
