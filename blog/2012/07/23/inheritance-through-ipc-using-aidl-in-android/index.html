@@ -266,9 +266,11 @@
 <h3>Reminders</h3>
 
 
-<h1>You still need to include all concrete implementors in both the service application and client application.</h1>
+<ul>
+<li>You still need to include all concrete implementors in both the service application and client application.</li>
+<li>You must handle the case where the version of your service running differs from the version that the client is expecting: if an older version of your service is used with newer apps and you&#8217;ve added a new strategy since then, it won&#8217;t be available on the outdated service side.</li>
+</ul>
 
-<h1>You must handle the case where the version of your service running differs from the version that the client is expecting: if an older version of your service is used with newer apps and you&#8217;ve added a new strategy since then, it won&#8217;t be available on the outdated service side.</h1>
 
 <p>You can find a complete example Android project that demonstrates inheritance using AIDL in Android <a href="https://github.com/kevinhartman/kevinhartman.github.com/raw/master/AIDLStrategyPattern.zip">here</a>.</p>
 </div>
