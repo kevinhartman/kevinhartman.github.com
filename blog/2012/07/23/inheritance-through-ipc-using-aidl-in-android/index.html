@@ -257,7 +257,7 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>The most important thing to note here is how the strategy itself is <em>Serializabl_e, and how </em>writeToParcel<em> and </em>createFromParcel<em> both write and read the serialized version of this class. That is the </em>key<em>. You absolutely </em>must_ do this if you&#8217;d like to use inheritance in AIDL (assuming you don&#8217;t want to use my crazy research project).</p>
+<p>The most important thing to note here is how the strategy itself is <em>Serializable</em>, and how <em>writeToParcel</em> and <em>createFromParcel</em> both write and read the serialized version of this class. That is the <em>key</em>. You absolutely <em>must</em> do this if you&#8217;d like to use inheritance in AIDL (assuming you don&#8217;t want to use my crazy research project).</p>
 
 <p>Now, this is actually better than my Simple AIDL Objects approach. You don&#8217;t need to do anything extra within your concrete implementors. Java&#8217;s serialization will handle the packing and recreating of your concrete implementors automatically. It&#8217;s recommended that you do some light reading on Serializable, so that you don&#8217;t run into associated pitfalls.</p>
 
