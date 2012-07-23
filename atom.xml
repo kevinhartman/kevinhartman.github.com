@@ -4,7 +4,7 @@
   <title><![CDATA[kevin hartman]]></title>
   <link href="http://kevinhartman.github.com/atom.xml" rel="self"/>
   <link href="http://kevinhartman.github.com/"/>
-  <updated>2012-07-23T00:21:46-07:00</updated>
+  <updated>2012-07-23T00:23:43-07:00</updated>
   <id>http://kevinhartman.github.com/</id>
   <author>
     <name><![CDATA[Kevin Hartman]]></name>
@@ -18,7 +18,15 @@
     <link href="http://kevinhartman.github.com/blog/2012/07/23/inheritance-through-ipc-using-aidl-in-android/"/>
     <updated>2012-07-23T00:16:00-07:00</updated>
     <id>http://kevinhartman.github.com/blog/2012/07/23/inheritance-through-ipc-using-aidl-in-android</id>
-    <content type="html"><![CDATA[<p>Is this going to be posted?</p>
+    <content type="html"><![CDATA[<p>First off, this is my first post on this blog! I&#8217;m excited to have a space where I can share interesting things!</p>
+
+<p>The title of this post really sums up what I&#8217;m going to demonstrate: Inheritance Through IPC Using AIDL in Android.</p>
+
+<p>As a preface, recently I was developing an Android Service with the intent of exposing it to other Android Applications in the future- sort of a shared service that other developers could tap into without having a need to create something similar and waste the user&#8217;s resources. My first thought was to set up the interprocess communication (IPC) aspect through an Android Messenger.</p>
+
+<p>This is usually a good approach: concurrency is handled for you, client applications don&#8217;t need your AIDL interface (in fact, their developers don&#8217;t even need to know that AIDL exists), and you avoid having to ensure that the AIDL interface that you <em>didn&#8217;t</em> write maintains backwards compatible when you make changes.</p>
+
+<p>Unfortunately for my application, a Messenger wasn&#8217;t a very clean solution. What I&#8217;d wanted was to essentially be able to</p>
 ]]></content>
   </entry>
   
