@@ -4,7 +4,7 @@
   <title><![CDATA[kevin hartman]]></title>
   <link href="http://kevinhartman.github.com/atom.xml" rel="self"/>
   <link href="http://kevinhartman.github.com/"/>
-  <updated>2012-07-23T01:28:54-07:00</updated>
+  <updated>2012-07-23T02:10:44-07:00</updated>
   <id>http://kevinhartman.github.com/</id>
   <author>
     <name><![CDATA[Kevin Hartman]]></name>
@@ -24,7 +24,7 @@
 
 <p>This is usually a good approach: concurrency is handled for you, client applications don&#8217;t need your AIDL interface (in fact, their developers don&#8217;t even need to know that AIDL exists), and you avoid having to ensure that the AIDL interface that you <em>didn&#8217;t</em> write maintains backwards compatible when you make changes.</p>
 
-<p>Unfortunately for my application, a Messenger wasn&#8217;t a very clean solution. What I&#8217;d wanted was to essentially be able to allow client applications to provide a particular strategy for the service to use to do its work, globally. For example: <em>serviceInterface.setStrategy(new SomeStrategy())</em>. The newly set strategy would be used by the service (if it were more active than the current strategy, in my case), until another application changed it. This is ideal for the type of service I&#8217;m developing.</p>
+<p>Unfortunately for my application, a Messenger wasn&#8217;t a very clean solution. <!-- more -->What I&#8217;d wanted was to essentially be able to allow client applications to provide a particular strategy for the service to use to do its work, globally. For example: <em>serviceInterface.setStrategy(new SomeStrategy())</em>. The newly set strategy would be used by the service (if it were more active than the current strategy, in my case), until another application changed it. This is ideal for the type of service I&#8217;m developing.</p>
 
 <p>Why&#8217;s that? Well, if I were to use a Messenger, every time I decided to add a new strategy to my service&#8217;s repertoire, I would need to add a new constant that would represent the act of setting that particular strategy, throw it into an ever-growing case statement within the message handler, and worst of all, if strategies required different initilizations, I&#8217;d have to read these from the message&#8217;s bundle and <em>hope</em> that the client application&#8217;s developer had provided bundle data with matching keys, values in the right format, or even remembered that the strategy depended on any data at all. That&#8217;s not clean. At all.</p>
 
@@ -64,11 +64,136 @@
 </span><span class='line'>
 </span><span class='line'>  <span class="kt">void</span> <span class="nf">setStrategy</span><span class="o">(</span><span class="n">in</span> <span class="n">AbstractStrategy</span> <span class="n">strategy</span><span class="o">);</span>
 </span><span class='line'>  
-</span><span class='line'>  <span class="n">AbstractStrategy</span> <span class="nf">getStrategyName</span><span class="o">();</span>
+</span><span class='line'>  <span class="n">AbstractStrategy</span> <span class="nf">getStrategy</span><span class="o">();</span>
 </span><span class='line'>  
 </span><span class='line'><span class="o">}</span>
 </span></code></pre></td></tr></table></div></figure>
 
+
+<p>Now you must define the subclassable type that you&#8217;d like to use for your strategies. There&#8217;s an example of how to do this inside the demo project.</p>
+
+<p>Next, you&#8217;ll need to create that type. Here&#8217;s an example of an abstract strategy type that I made, called AbstractStrategy.</p>
+
+<figure class='code'><figcaption><span>AbstractStrategy.java</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kn">package</span> <span class="n">mn</span><span class="o">.</span><span class="na">hart</span><span class="o">.</span><span class="na">example</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="kn">import</span> <span class="nn">java.io.Serializable</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="kn">import</span> <span class="nn">android.os.Parcel</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">android.os.Parcelable</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">AbstractStrategy</span> <span class="kd">implements</span> <span class="n">Serializable</span><span class="o">,</span> <span class="n">Parcelable</span> <span class="o">{</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="cm">/**</span>
+</span><span class='line'><span class="cm">  * A UID generated by Eclipse for serialization purposes.</span>
+</span><span class='line'><span class="cm">  */</span>
+</span><span class='line'>  <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">long</span> <span class="n">serialVersionUID</span> <span class="o">=</span> <span class="mi">3370002816503110149L</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="cm">/**</span>
+</span><span class='line'><span class="cm">  * Flags for special marshaling</span>
+</span><span class='line'><span class="cm">  */</span>
+</span><span class='line'>  <span class="kd">public</span> <span class="kt">int</span> <span class="nf">describeContents</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>        <span class="k">return</span> <span class="mi">0</span><span class="o">;</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="cm">/**</span>
+</span><span class='line'><span class="cm">  * Write the concrete strategy to the Parcel.</span>
+</span><span class='line'><span class="cm">  */</span>
+</span><span class='line'>  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">writeToParcel</span><span class="o">(</span><span class="n">Parcel</span> <span class="n">out</span><span class="o">,</span> <span class="kt">int</span> <span class="n">flags</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>      <span class="c1">// Serialize &quot;this&quot;, so that we can get it back after IPC</span>
+</span><span class='line'>      <span class="n">out</span><span class="o">.</span><span class="na">writeSerializable</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="cm">/**</span>
+</span><span class='line'><span class="cm">  * The creator that MUST be defined and named &quot;CREATOR&quot;</span>
+</span><span class='line'><span class="cm">  * so that the service generated from AIDL can recreate</span>
+</span><span class='line'><span class="cm">  * AbstractStrategys after IPC.</span>
+</span><span class='line'><span class="cm">  */</span>
+</span><span class='line'>  <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">Creator</span><span class="o">&lt;</span><span class="n">AbstractStrategy</span><span class="o">&gt;</span> <span class="n">CREATOR</span>
+</span><span class='line'>            <span class="o">=</span> <span class="k">new</span> <span class="n">Parcelable</span><span class="o">.</span><span class="na">Creator</span><span class="o">&lt;</span><span class="n">AbstractStrategy</span><span class="o">&gt;()</span> <span class="o">{</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="cm">/**</span>
+</span><span class='line'><span class="cm">      * Read the serialized concrete strategy from the parcel.</span>
+</span><span class='line'><span class="cm">      * @param in The parcel to read from</span>
+</span><span class='line'><span class="cm">      * @return An AbstractStrategy</span>
+</span><span class='line'><span class="cm">      */</span>
+</span><span class='line'>        <span class="kd">public</span> <span class="n">AbstractStrategy</span> <span class="nf">createFromParcel</span><span class="o">(</span><span class="n">Parcel</span> <span class="n">in</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>          <span class="c1">// Read serialized concrete strategy from parcel</span>
+</span><span class='line'>          <span class="k">return</span> <span class="o">(</span><span class="n">AbstractStrategy</span><span class="o">)</span> <span class="n">in</span><span class="o">.</span><span class="na">readSerializable</span><span class="o">();</span>
+</span><span class='line'>        <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="cm">/**</span>
+</span><span class='line'><span class="cm">         * Required by Creator</span>
+</span><span class='line'><span class="cm">         */</span>
+</span><span class='line'>        <span class="kd">public</span> <span class="n">AbstractStrategy</span><span class="o">[]</span> <span class="nf">newArray</span><span class="o">(</span><span class="kt">int</span> <span class="n">size</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>            <span class="k">return</span> <span class="k">new</span> <span class="n">AbstractStrategy</span><span class="o">[</span><span class="n">size</span><span class="o">];</span>
+</span><span class='line'>        <span class="o">}</span>
+</span><span class='line'>    <span class="o">};</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The most important thing to note here is how the strategy itself is <em>Serializabl_e, and how </em>writeToParcel<em> and </em>createFromParcel<em> both write and read the serialized version of this class. That is the </em>key<em>. You absolutely </em>must_ do this if you&#8217;d like to use inheritance in AIDL (assuming you don&#8217;t want to use my crazy research project).</p>
+
+<p>Now, this is actually better than my Simple AIDL Objects approach. You don&#8217;t need to do anything extra within your concrete implementors. Java&#8217;s serialization will handle the packing and recreating of your concrete implementors automatically. It&#8217;s recommended that you do some light reading on Serializable, so that you don&#8217;t run into associated pitfalls.</p>
+
+<p>Hopefully this solution is clear, and you&#8217;ll be able to follow the above example in order to get your own implementation up and running. Feel free to contact me with questions!</p>
+
+<p>You can find a complete example Android projects that demonstrates inheritance using AIDL in Android <a href="">here</a>.</p>
 ]]></content>
   </entry>
   
