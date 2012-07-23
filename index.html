@@ -93,15 +93,55 @@
 
   <div class="entry-content"><p>First off, this is my first post on this blog! I&#8217;m excited to have a space where I can share interesting things!</p>
 
-<p><b>As a preface</b>, recently I was developing an Android Service with the intent of exposing it to other Android Applications in the future- sort of a shared service that other developers could tap into without having a need to create something similar and waste the user&#8217;s resources. My first thought was to set up the interprocess communication (IPC) aspect through an Android Messenger.</p>
+<p>As a preface, recently I was developing an Android Service with the intent of exposing it to other Android Applications in the future- sort of a shared service that other developers could tap into without having a need to create something similar and waste the user&#8217;s resources. My first thought was to set up the interprocess communication (IPC) aspect through an Android Messenger.</p>
 
 <p>This is usually a good approach: concurrency is handled for you, client applications don&#8217;t need your AIDL interface (in fact, their developers don&#8217;t even need to know that AIDL exists), and you avoid having to ensure that the AIDL interface that you <em>didn&#8217;t</em> write maintains backwards compatible when you make changes.</p>
 
-<p>Unfortunately for my application, a Messenger wasn&#8217;t a very clean solution. What I&#8217;d wanted was to essentially be able to allow client applications to provide a particular strategy for the service to use to do its work, globally. For example: <i>serviceInterface.setStrategy(new SomeStrategy())</i>. The newly set strategy would be used by the service (if it were more active than the current strategy, in my case), until another application changed it. This is ideal for the type of service I&#8217;m developing.</p>
+<p>Unfortunately for my application, a Messenger wasn&#8217;t a very clean solution. What I&#8217;d wanted was to essentially be able to allow client applications to provide a particular strategy for the service to use to do its work, globally. For example: <em>serviceInterface.setStrategy(new SomeStrategy())</em>. The newly set strategy would be used by the service (if it were more active than the current strategy, in my case), until another application changed it. This is ideal for the type of service I&#8217;m developing.</p>
 
-<p><b>Why&#8217;s that?</b> Well, if I were to use a Messenger, every time I decided to add a new strategy to my service&#8217;s repertoire, I would need to add a new constant that would represent the act of setting that particular strategy, throw it into an ever-growing case statement within the message handler, and worst of all, if strategies required different initilizations, I&#8217;d have to read these from the message&#8217;s bundle and <em>hope</em> that the client application&#8217;s developer had provided bundle data with matching keys, values in the right format, or even remembered that the strategy depended on any data at all. That&#8217;s not clean. At all.</p>
+<p>Why&#8217;s that? Well, if I were to use a Messenger, every time I decided to add a new strategy to my service&#8217;s repertoire, I would need to add a new constant that would represent the act of setting that particular strategy, throw it into an ever-growing case statement within the message handler, and worst of all, if strategies required different initilizations, I&#8217;d have to read these from the message&#8217;s bundle and <em>hope</em> that the client application&#8217;s developer had provided bundle data with matching keys, values in the right format, or even remembered that the strategy depended on any data at all. That&#8217;s not clean. At all.</p>
 
-<p>With a strategy pattern paired with the AIDL approach, this is much cleaner. The compiler will ensure that particular strategies are being constructed with the minimum amount of information that they require, and the interface that will be exposed to client application developers will be the &#8220;java way&#8221;- not at all any of that Messenger crap.</p>
+<p>With a strategy pattern paired with the AIDL approach, this is much cleaner. The compiler will ensure that particular strategies are being constructed with the minimum amount of information that they require, and the interface that will be exposed to client application developers will comply to the &#8220;java way&#8221;- whereas the Messenger approach really does not.</p>
+
+<p>What this means is that the <em>setStrategy</em> method in my AIDL-defined interface would have to accept a parent type (usually an abstract class) that could be subclassed for different concrete implementations.</p>
+
+<p>That sounds fine and easy. But it&#8217;s a bit less intuitive than that, which maybe you&#8217;ve realized (and, as a result, stumbled your way here). The natural approach is to just <em>have the setStrategy method accept a subclassable class</em>. This is correct, but won&#8217;t get you up and running. The trouble is teardown and reconstruction of the concrete implementation at runtime prior to and following IPC, respectively. You need to get all of the custom instance data held by the concrete implementation prior to IPC, save it in the Parcel (that you&#8217;ll get back after IPC), and then <em>choose the correct class to instantiate following IPC</em>.</p>
+
+<p>When I first encountered this need, my solution was to create <a href="http://kevinhartman.github.com/simple-aidl-objects/">Simple AIDL Objects</a>, a research project I&#8217;ve open-sourced to my GitHub. It handles all of that stuff for you, but does so in a way that uses non-standard reflection to do evil things (that you shouldn&#8217;t do unless you&#8217;re the DalvikVM). That said you <em>shouldn&#8217;t use it</em> in production code. I&#8217;d love for you to take a look at the source code, because it&#8217;s pretty cool, but please don&#8217;t use it in your production code ;)</p>
+
+<p>After I&#8217;d finished creating that solution, I realized that java has this wonderful (sort of) thing called <em>serialization</em>. Using serialization, you can completely avoid the need to do evil things with reflection. That&#8217;s what this solution will demonstrate.</p>
+
+<h2>The Solution</h2>
+
+
+<p>First, you need to go ahead and create a new AIDL service interface. This post assumes you know how to do that already, and only provides relevant example code (but a complete demo project is available here).</p>
+
+<figure class='code'><figcaption><span>IStrategyService.aidl</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kn">package</span> <span class="n">mn</span><span class="o">.</span><span class="na">hart</span><span class="o">.</span><span class="na">example</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="kn">import</span> <span class="nn">mn.hart.example.AbstractStrategy</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="kd">interface</span> <span class="nc">IStrategyService</span> <span class="o">{</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="kt">void</span> <span class="nf">setStrategy</span><span class="o">(</span><span class="n">in</span> <span class="n">AbstractStrategy</span> <span class="n">strategy</span><span class="o">);</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="n">AbstractStrategy</span> <span class="nf">getStrategyName</span><span class="o">();</span>
+</span><span class='line'>  
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
 </div>
   
   
