@@ -4,7 +4,7 @@
   <title><![CDATA[kevin hartman]]></title>
   <link href="http://kevinhartman.github.com/atom.xml" rel="self"/>
   <link href="http://kevinhartman.github.com/"/>
-  <updated>2012-07-23T02:39:48-07:00</updated>
+  <updated>2012-07-23T02:52:21-07:00</updated>
   <id>http://kevinhartman.github.com/</id>
   <author>
     <name><![CDATA[Kevin Hartman]]></name>
@@ -192,6 +192,13 @@
 <p>Now, this is actually better than my Simple AIDL Objects approach. You don&#8217;t need to do anything extra within your concrete implementors. Java&#8217;s serialization will handle the packing and recreating of your concrete implementors automatically. It&#8217;s recommended that you do some light reading on Serializable, so that you don&#8217;t run into associated pitfalls.</p>
 
 <p>Hopefully this solution is clear, and you&#8217;re able to follow the above example in order to get your own implementation up and running. Feel free to contact me with questions!</p>
+
+<h3>Reminders</h3>
+
+
+<h1>You still need to include all concrete implementors in both the service application and client application.</h1>
+
+<h1>You must handle the case where the version of your service running differs from the version that the client is expecting: if an older version of your service is used with newer apps and you&#8217;ve added a new strategy since then, it won&#8217;t be available on the outdated service side.</h1>
 
 <p>You can find a complete example Android project that demonstrates inheritance using AIDL in Android <a href="https://github.com/kevinhartman/kevinhartman.github.com/raw/master/AIDLStrategyPattern.zip">here</a>.</p>
 ]]></content>

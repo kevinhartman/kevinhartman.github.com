@@ -263,6 +263,13 @@
 
 <p>Hopefully this solution is clear, and you&#8217;re able to follow the above example in order to get your own implementation up and running. Feel free to contact me with questions!</p>
 
+<h3>Reminders</h3>
+
+
+<h1>You still need to include all concrete implementors in both the service application and client application.</h1>
+
+<h1>You must handle the case where the version of your service running differs from the version that the client is expecting: if an older version of your service is used with newer apps and you&#8217;ve added a new strategy since then, it won&#8217;t be available on the outdated service side.</h1>
+
 <p>You can find a complete example Android project that demonstrates inheritance using AIDL in Android <a href="https://github.com/kevinhartman/kevinhartman.github.com/raw/master/AIDLStrategyPattern.zip">here</a>.</p>
 </div>
 
