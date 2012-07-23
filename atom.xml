@@ -4,7 +4,7 @@
   <title><![CDATA[kevin hartman]]></title>
   <link href="http://kevinhartman.github.com/atom.xml" rel="self"/>
   <link href="http://kevinhartman.github.com/"/>
-  <updated>2012-07-23T00:09:33-07:00</updated>
+  <updated>2012-07-23T00:21:46-07:00</updated>
   <id>http://kevinhartman.github.com/</id>
   <author>
     <name><![CDATA[Kevin Hartman]]></name>
@@ -12,5 +12,14 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Inheritance Through IPC Using AIDL in Android]]></title>
+    <link href="http://kevinhartman.github.com/blog/2012/07/23/inheritance-through-ipc-using-aidl-in-android/"/>
+    <updated>2012-07-23T00:16:00-07:00</updated>
+    <id>http://kevinhartman.github.com/blog/2012/07/23/inheritance-through-ipc-using-aidl-in-android</id>
+    <content type="html"><![CDATA[<p>Is this going to be posted?</p>
+]]></content>
+  </entry>
   
 </feed>
