@@ -16,7 +16,7 @@ description: >-                        # used by seo meta and the atom feed
   Developer blog covering topics on cpp, system's programming, and more.
 
 # Replace with your domain, e.g. 'https://username.github.io'
-url: 'protocol://domain'
+url: 'https://kevinhartman.github.io/'
 
 author: Kevin Hartman                  # change to your full name
 
