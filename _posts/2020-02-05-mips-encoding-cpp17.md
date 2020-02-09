@@ -1,7 +1,7 @@
 ---
 title: "Encoding MIPS Instructions with C++17"
 date: 2020-02-05 00:00:00 +0800
-categories: [cpp, mwos]
+categories: [Programming Languages]
 tags: [cpp, mwos]
 ---
 
