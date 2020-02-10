@@ -80,7 +80,8 @@
 div.highlight,
 figure.highlight,
 .highlighter-rouge {
-  background: var(--highlight-pre-bg, #f7f7f7)
+  background: var(--highlight-pre-bg, #f7f7f7);
+  color: #c792ea; // use keyword color from dark mode. This is overridden below for light.
 }
 
 .highlight {
