@@ -1,6 +1,6 @@
 ---
 title: Literal Classes as Non-type Template Parameters in C++20
-date: 2020-02-05 00:00:00 +0800
+date: 2020-02-12 09:13:10 -0500
 categories: [Programming Languages]
 tags: [cpp, cpp20]
 seo:
@@ -84,7 +84,7 @@ As noted above, the following limitations apply to literal class types used as n
 ## All base classes and non-static data members are **public** and **non-mutable**.
 This means that these class types can *not* have private data fields. They *can* however have private functions.
 
-Regarding the non-mutable data member requirement, I would *expect* this to mean that the presence of either a non-const data member or a non-const member function should cause a compilation failure, but this does not appear to be enforced in GCC (9.2.0). I've [filed a bug](https://gcc.gnu.org/bugzilla/show_bug.cgi?id=93705), just in case.
+Regarding immutability, this means that data members cannot be marked with the [`mutable` keyword](https://en.cppreference.com/w/cpp/language/cv). Thanks to [zygoloid](https://www.reddit.com/user/zygoloid) on Reddit for this distinction.
 
 ```c++
 class Literal {
