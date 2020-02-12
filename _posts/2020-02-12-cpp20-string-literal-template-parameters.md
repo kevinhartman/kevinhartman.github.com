@@ -3,7 +3,9 @@ title: String Literal Template Parameters in C++20
 categories: [Programming Languages]
 tags: [cpp, cpp20]
 seo:
-  description: Using class literal non-type template parameters to implement string literal template parameters in C++20.
+  description: Using class literal non-type template parameters to implement string
+    literal template parameters in C++20.
+  date_modified: 2020-02-12 16:45:04 -0500
 ---
 
 In a [recent post](/posts/cpp20-class-as-non-type-template-param/), I described a C++20 feature that allows literal classes to be used as non-type template parameters. The original feature proposal mentions how this could enable constant expression strings to be passed as template parameters as well (see [P0732R2, section 3.2](http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2018/p0732r2.pdf)).
