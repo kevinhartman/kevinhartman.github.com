@@ -1,5 +1,6 @@
 ---
 title: String Literal Template Parameters in C++20
+date: 2020-02-12 16:45:04 -0500
 categories: [Programming Languages]
 tags: [cpp, cpp20]
 seo:
