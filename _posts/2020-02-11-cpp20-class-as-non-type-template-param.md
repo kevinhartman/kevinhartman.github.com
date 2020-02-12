@@ -3,6 +3,8 @@ title: Literal Classes as Non-type Template Parameters in C++20
 date: 2020-02-05 00:00:00 +0800
 categories: [Programming Languages]
 tags: [cpp, cpp20]
+seo:
+  date_modified: 2020-02-12 09:05:32 -0500
 ---
 
 With the introduction of C++20, it's now possible to provide a literal class type (i.e. `constexpr` class) instance as a template parameter.
