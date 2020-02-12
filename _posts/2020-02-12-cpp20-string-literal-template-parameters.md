@@ -13,7 +13,7 @@ In a [recent post](/posts/cpp20-class-as-non-type-template-param/), I described 
 
 In summary, this can be achieved by wrapping a constant expression string inside of a class literal type.
 
-After a discussion with Reddit user [theICEBear_dk](https://www.reddit.com/user/theICEBear_dk), I was motivated to come up with an implementation.
+After [a discussion](https://www.reddit.com/r/cpp/comments/f2s4ut/literal_classes_as_nontype_template_parameters_in/fhf3jyt/) with Reddit user [theICEBear_dk](https://www.reddit.com/user/theICEBear_dk), I was motivated to come up with an implementation.
 
 The following sample demonstrates this, making use of an implicit conversion to create the illusion that a string literal can be pass directly as a template parameter.
 
