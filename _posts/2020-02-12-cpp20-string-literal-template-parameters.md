@@ -1,21 +1,21 @@
 ---
-title: String Literal Template Parameters in C++20
+title: Passing String Literals as Template Parameters in C++20
 date: 2020-02-12 16:45:04 -0500
 categories: [Programming Languages]
 tags: [cpp, cpp20]
 seo:
-  description: Using class literal non-type template parameters to implement string
-    literal template parameters in C++20.
+  description: Passing string literals as template parameters in C++20
   date_modified: 2020-02-12 16:48:34 -0500
 ---
 
-In a [recent post](/posts/cpp20-class-as-non-type-template-param/), I described a C++20 feature that allows literal classes to be used as non-type template parameters. The original feature proposal mentions how this could enable constant expression strings to be passed as template parameters as well (see [P0732R2, section 3.2](http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2018/p0732r2.pdf)).
+In a [recent post](/posts/cpp20-class-as-non-type-template-param/), I described a C++20 feature that allows class literals to be used as non-type template parameters. The original feature proposal mentions how this could enable constant expression strings to be passed as template parameters as well (see [P0732R2, section 3.2](http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2018/p0732r2.pdf)).
 
-In summary, this can be achieved by wrapping a constant expression string inside of a class literal type.
+This would work by wrapping the constant expression string in a *structural* class literal, which would store its characters in a fixed-length array (e.g. `char[N]`).
 
-After [a discussion](https://www.reddit.com/r/cpp/comments/f2s4ut/literal_classes_as_nontype_template_parameters_in/fhf3jyt/) with Reddit user [theICEBear_dk](https://www.reddit.com/user/theICEBear_dk), I was motivated to come up with an implementation.
+The following sample demonstrates this by introducing a structural class literal wrapper type
+`StringLiteral`, which is constructed from a char array.
 
-The following sample demonstrates this, making use of an implicit conversion to create the illusion that a string literal can be pass directly as a template parameter.
+Note that the syntax `Print<"literal">` is a syntactic sugar. The string is not being passed *directly* to `Print`, but rather undergoes an implicit conversion to our class literal `StringLiteral`. Note that this conversion depends on C++17's added support of template parameter deduction using constructor arguments (the value of `N` can be deduced from constructor argument `str`).
 
 ```c++
 #include <iostream>
@@ -29,21 +29,21 @@ The following sample demonstrates this, making use of an implicit conversion to 
 template<size_t N>
 struct StringLiteral {
     constexpr StringLiteral(const char (&str)[N]) {
-        std::copy_n(str, N, raw);
+        std::copy_n(str, N, value);
     }
     
-    // Retrieves the wrapped string as a constant :)
-    constexpr auto& value() const { return raw; }
-    
-    char raw[N];
+    char value[N];
 };
 
 template<StringLiteral lit>
 void Print() {
-    // Get the size of the string as a constant expression.
-    constexpr auto size = sizeof(lit.value());
-    
-    std::cout << "Size: " << size << ", Contents: " << lit.value() << std::endl;
+    // The size of the string is available as a constant expression.
+    constexpr auto size = sizeof(lit.value);
+
+    // and so is the string's content.
+    constexpr auto contents = lit.value;
+
+    std::cout << "Size: " << size << ", Contents: " << contents << std::endl;
 }
 
 int main()
