@@ -36,14 +36,14 @@
 .post-navigation .btn.disabled {
   width: 50%;
   position: relative;
-  color: var(--link-color, #2a408e);
+  color: var(--link-color, rgb(68, 11, 160));
   border-color: var(--main-border, #e9ecef);
 }
 
 .post-navigation .btn:hover {
-  background: #2a408e;
+  background: rgb(68, 11, 160);
   color: #fff;
-  border-color: #2a408e;
+  border-color: rgb(68, 11, 160);
 }
 
 .post-navigation a.btn.disabled {
