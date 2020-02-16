@@ -84,6 +84,10 @@ As noted above, the following limitations apply to literal class types used as n
 ## All base classes and non-static data members are **public** and **non-mutable**.
 This means that these class types can *not* have private data fields. They *can* however have private functions.
 
+> Author commentary:
+>
+> I've so far been unable to find a definitive explanation for why all data members must be public. However, my guess would be that this is due to all template parameter objects of the same type and value sharing the same underlying static storage duration object (see Storage Duration below). It may otherwise be misleading to allow a literal class used as a NTTP to define private state when that private state would *necessarily* be used to determine deep member-wise equality on template instantiation. Please leave a [comment on Reddit](https://www.reddit.com/r/cpp/comments/f2s4ut/literal_classes_as_nontype_template_parameters_in/) if you have a better answer and I'll update the post, with attribution.
+
 Regarding immutability, this means that data members cannot be marked with the [`mutable` keyword](https://en.cppreference.com/w/cpp/language/cv). Thanks to [zygoloid](https://www.reddit.com/user/zygoloid) on Reddit for this distinction.
 
 ```c++
@@ -100,6 +104,15 @@ private:
 
 ## The types of all bases classes and non-static data members are **structural types** or array thereof.
 This means that literal class types must be comprised of data members that are also allowable under the same restrictions for non-type template parameters. That is to say they must *also* be structural types.
+
+# Storage Duration
+Class literal template parameter objects have *static* [storage duration](https://en.cppreference.com/w/cpp/language/storage_duration), meaning only one instance of the object exists in the program.
+
+Further, template parameter objects of the same type with the same value **will always be the same object.**
+
+> An identifier that names a non-type template parameter of class type T denotes a static storage duration object of type const T, called a template parameter object, whose value is that of the corresponding template argument after it has been converted to the type of the template parameter. **All such template parameters in the program of the same type with the same value denote the same template parameter object.**
+> 
+> From <https://en.cppreference.com/w/cpp/language/template_parameters>
 
 # Compiler Compatibility
 The examples provided here have been tested using GCC 9.2.0 (support was added in GCC 9).
