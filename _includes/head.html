@@ -35,12 +35,15 @@
   {% if page.image_rel %}
     <!-- use "image_rel" specified in post -->
     <meta property="og:image" content="{{ site.url }}{{ page.image_rel }}" />
+    <meta name="twitter:image" content="{{ site.url }}{{ page.image_rel }}" />
   {% else %}
     <!-- use avatar -->
     {% if (site.avatar | slice: 0) == '/' %}
       <meta property="og:image" content="{{ site.url }}{{ avatar_url }}" />
+      <meta name="twitter:image" content="{{ site.url }}{{ avatar_url }}" />
     {% else %}
       <meta property="og:image" content="{{ avatar_url }}" />
+      <meta name="twitter:image" content="{{ avatar_url }}" />
     {% endif %}
   {% endif %}
 
