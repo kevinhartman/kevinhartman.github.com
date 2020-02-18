@@ -10,6 +10,40 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+  <!-- twitter metadata -->
+  <!--
+  <meta name="twitter:card" content="summary"></meta>
+  <meta name="twitter:creator" content="@{{ site.twitter.username }}" />
+  -->
+
+  <!-- open graph metadata -->
+  <!--
+  <meta property="og:url" content="{{ site.url }}{{ page.url }}" />
+
+  {% if page.layout == "home" %}
+    <meta property="og:title" content="{{ site.title }}" />
+    <meta property="og:description" content="{{ site.description }}" />
+  {% else %}
+    <meta property="og:title" content="{{ page.title }}" />
+    {% if page.seo and page.seo.description %}
+      <meta property="og:description" content="{{ page.seo.description }}" />
+    {% endif %}
+  {% endif %}
+  -->
+
+  <!-- og thumbnail -->
+  {% if page.image_rel %}
+    <!-- use "image_rel" specified in post -->
+    <meta property="og:image" content="{{ site.url }}{{ page.image_rel }}" />
+  {% else %}
+    <!-- use avatar -->
+    {% if (site.avatar | slice: 0) == '/' %}
+      <meta property="og:image" content="{{ site.url }}{{ avatar_url }}" />
+    {% else %}
+      <meta property="og:image" content="{{ avatar_url }}" />
+    {% endif %}
+  {% endif %}
+
   <title>
   {%- if page.layout == "home" -%}
     {{- site.title -}}

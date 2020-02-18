@@ -104,6 +104,7 @@ defaults:
         -
           label: Posts
           url: /
+      # author: "@ctr_peach" uncomment this to get jekyll-seo-tag to use it for twitter:creator (but it breaks classic author meta)
   -
     scope:
       path: _drafts
