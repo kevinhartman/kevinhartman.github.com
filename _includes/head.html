@@ -173,16 +173,18 @@
   <!-- og thumbnail -->
   {% if page.image_rel %}
     <!-- use "image_rel" specified in post -->
-    <meta property="og:image" content="{{ site.url }}{{ page.image_rel }}" />
-    <meta name="twitter:image:src" content="{{ site.url }}{{ page.image_rel }}" />
+    <meta property="og:image" content="{{ page.image_rel | absolute_url }}" />
+    <meta name="twitter:image:src" content="{{ page.image_rel | absolute_url }}" />
   {% else %}
     <!-- use avatar -->
     {% if (site.avatar | slice: 0) == '/' %}
-      <meta property="og:image" content="{{ site.url }}{{ avatar_url }}" />
-      <meta name="twitter:image:src" content="{{ site.url }}{{ avatar_url }}" />
+      <meta property="og:image" content="{{ site.avatar | absolute_url }}" />
+      <meta name="twitter:image:src" content="{{ site.avatar | absolute_url }}" />
     {% else %}
-      <meta property="og:image" content="{{ avatar_url }}" />
-      <meta name="twitter:image:src" content="{{ avatar_url }}" />
+      <meta property="og:image" content="{{ site.avatar }}" />
+      <meta name="twitter:image:src" content="{{ site.avatar }}" />
     {% endif %}
   {% endif %}
 </head>
+
+<!-- TODO: find a way to remove // before assets in prod -->
