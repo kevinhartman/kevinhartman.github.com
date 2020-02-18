@@ -5,7 +5,7 @@ categories: [Programming Languages]
 tags: [cpp, mwos]
 image_rel: /assets/img/2020-02-05-mips-encoding-cpp17/mips-inst-types.png
 seo:
-  date_modified: 2020-02-09 19:34:39 +0100
+  date_modified: 2020-02-17 23:16:19 -0500
 ---
 
 I recently started writing an assembler from scratch using C++17 for a somewhat obscure operating system. The assembler’s design supports multiple target architectures, but for now, I only need to support the MIPS I instruction set, which happens to be extremely convenient, in that it’s trivial to encode.
