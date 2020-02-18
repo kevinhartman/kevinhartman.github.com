@@ -16,7 +16,7 @@ description: >-                        # used by seo meta and the atom feed
   Developer blog on programming languages, systems programming, and reverse engineering.
 
 # Replace with your domain, e.g. 'https://username.github.io'
-url: 'https://blog.keha.dev/'
+url: 'https://blog.keha.dev'
 
 author: ctr_peach                  # change to your full name
 
