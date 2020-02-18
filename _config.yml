@@ -18,7 +18,7 @@ description: >-                        # used by seo meta and the atom feed
 # Replace with your domain, e.g. 'https://username.github.io'
 url: 'https://blog.keha.dev/'
 
-author: Kevin Hartman                  # change to your full name
+author: ctr_peach                  # change to your full name
 
 avatar: /assets/img/profile.jpg   # support internet resources
 
@@ -91,6 +91,11 @@ kramdown:
 permalink: /posts/:title/
 
 defaults:
+  -
+    scope:
+      path: ""
+    values:
+      image: /assets/img/profile.jpg
   -
     scope:
       path: ""          # An empty string here means all files in the project
