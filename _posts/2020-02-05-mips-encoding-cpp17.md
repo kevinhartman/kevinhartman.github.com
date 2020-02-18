@@ -3,7 +3,10 @@ title: Encoding MIPS Instructions with C++17
 date: 2020-02-05 00:00:00 +0800
 categories: [Programming Languages]
 tags: [cpp, mwos]
-image: /assets/img/2020-02-05-mips-encoding-cpp17/mips-inst-types.png
+image:
+  path: /assets/img/2020-02-05-mips-encoding-cpp17/mips-inst-types.png
+  width: 1132
+  height: 1292
 seo:
   date_modified: 2020-02-18 12:08:24 -0500
 ---

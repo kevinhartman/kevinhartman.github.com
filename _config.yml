@@ -95,7 +95,10 @@ defaults:
     scope:
       path: ""
     values:
-      image: /assets/img/profile.jpg
+      image:
+        path: /assets/img/profile.jpg
+        width: 460
+        height: 460
   -
     scope:
       path: ""          # An empty string here means all files in the project
