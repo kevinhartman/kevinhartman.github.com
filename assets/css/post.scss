@@ -192,6 +192,14 @@
   right: 1rem;
 }
 
+#follow {
+  color: #000000;
+}
+
+#follow a {
+  color: #00acee;
+}
+
 #post-extend-wrapper {
   min-height: 2rem;
 }
@@ -279,5 +287,17 @@
     /* Override BS */
     color: var(--toc-highlight)!important;
     border-left-color: var(--toc-highlight)!important;
+  }
+
+  #follow {
+    color: #dedede;
+  }
+  
+  #follow a {
+    color: rgb(156, 220, 254);
+  }
+  
+  #follow a:hover {
+    color: #00acee!important;
   }
 }

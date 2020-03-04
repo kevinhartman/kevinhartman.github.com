@@ -56,6 +56,17 @@ layout: default
         {% else %}
           {{ content }}
         {% endif %}
+
+        <!-- twitter -->
+        <div id="follow">
+          <h1>Enjoyed this post?</h1>
+          <h2>
+            Connect with me on Twitter:&nbsp;
+            <a href="https://twitter.com/{{ site.twitter.username }}" target="_blank">
+              @{{- site.twitter.username -}}
+            </a>
+          </h2>
+        </div>
       </div>
 
       <div class="post-tail text-muted">
