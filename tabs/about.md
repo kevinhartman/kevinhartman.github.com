@@ -8,7 +8,7 @@ title: About
 # MIT License
 ---
 
-First and foremost, I am **human**. I believe that kindness is the greatest virtue. If you need someone to listen, don't hesitate to write me.
+First and foremost, I am **human**. If you need someone to listen, don't hesitate to write me.
 
 I am a software developer. This blog will focus primarily on my personal programming-related interests, including systems programming, operating systems, programming languages, and reverse engineering.
 
