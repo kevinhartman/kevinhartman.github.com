@@ -36,14 +36,16 @@
 .post-navigation .btn.disabled {
   width: 50%;
   position: relative;
-  color: var(--link-color, rgb(68, 11, 160));
+  color: var(--link-color, rgb(108,117,125));
   border-color: var(--main-border, #e9ecef);
+  z-index: 0;
 }
 
 .post-navigation .btn:hover {
-  background: rgb(68, 11, 160);
-  color: #fff;
-  border-color: rgb(68, 11, 160);
+  background: var(--tag-hover);
+  color: var(--tag-hover-text, rgb(68, 11, 160));
+  border-color: var(--tag-hover-border, black);
+  z-index: 1;
 }
 
 .post-navigation a.btn.disabled {
@@ -148,6 +150,7 @@
 }
 
 #related-posts .card:hover {
+  border-color: white;
   -webkit-transform: translate3d(0, -3px, 0);
   transform: translate3d(0, -3px, 0);
   filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.08));

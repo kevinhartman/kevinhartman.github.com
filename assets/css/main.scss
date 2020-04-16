@@ -526,8 +526,8 @@ footer .license a {
 }
 
 #access-tags .post-tag:hover {
-  background-color: rgb(68, 11, 160);
-  border-color: rgb(88, 9, 215);
+  background-color: var(--tag-hover, rgb(68, 11, 160));
+  border-color: white;
   color: #fff;
   transition: none;
 }
@@ -787,6 +787,7 @@ table tbody td {
   transition: background 0.35s ease-in-out;
 }
 
+// TODO: don't do this
 .post-tag:hover {
   border-bottom: none;
   text-decoration: none;
