@@ -150,7 +150,6 @@
 
 @media (prefers-color-scheme: dark) {
   #archives li:nth-child(odd) {
-    background-image: linear-gradient(to left,
-      rgb(0, 0, 1), rgb(39, 39, 45), rgb(39, 39, 45), rgb(39, 39, 45), rgb(0, 0, 1));
+    background-image: var(--main-wrapper-bg)
   }
 }
