@@ -3,6 +3,8 @@ title: Scala to native code with GraalVM and GitHub Actions
 date: 2020-05-09 18:42:00 -0500
 categories: [Continuous Integration]
 tags: [Scala, GraalVM, GitHub, CICD, JVM]
+image:
+  path: /assets/img/2020-05-09-scala-console-native-github/banner.png
 seo:
   date_modified: 2020-05-11 01:55:27 -0400
 ---
