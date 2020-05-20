@@ -18,7 +18,7 @@ A single MIPS assembler instruction is comprised of an operation mnemonic along 
 # The three MIPS Instruction Encoding Formats
 The figure (A.1) shows how the available 32 bits of an instruction are used by each of the three encoding formats.
 
-![mips-inst-types]({{ "/assets/img/2020-02-05-mips-encoding-cpp17/mips-inst-types.png" | relative_url }}){: width="400" }
+![A diagram showing the I-Type, J-Type, and R-Type instruction encoding types for MIPS CPUs]({{ "/assets/img/2020-02-05-mips-encoding-cpp17/mips-inst-types.png" | relative_url }}){: width="400" }
 
 {:.content-caption}
 From IDT R30xx Family Software Reference Manual
@@ -216,7 +216,7 @@ To work around this limitation, a ***type*** template parameter can be used in c
 
 > Though this approach was not chosen due to complexity.
 
-For a detailed explanation of this solution, check out [Michael Park](https://twitter.com/mcypark)’s excellent blog post on the topic: “[constexpr function parameters](https://mpark.github.io/programming/2017/05/26/constexpr-function-parameters/#c17)”.
+For a detailed explanation of this solution, check out [Michael Park’s excellent blog post on constexpr function parameters](https://mpark.github.io/programming/2017/05/26/constexpr-function-parameters/#c17)”.
 
 # References
 - [IDT R30xx Family Software Reference Manual](https://cgi.cse.unsw.edu.au/~cs3231/doc/R3000.pdf)

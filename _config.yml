@@ -10,7 +10,7 @@
 
 title: Kevin Hartman                        # the main title
 
-tagline: programmer @Microsoft. views are my own. [he/him].  # it will display as the sub-title
+tagline: software engineer at Microsoft. views are my own. [he/him].  # it will display as the sub-title
 
 description: >-                        # used by seo meta and the atom feed
   Developer blog on programming languages, systems programming, and reverse engineering.

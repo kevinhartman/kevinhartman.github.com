@@ -8,7 +8,7 @@ seo:
   date_modified: 2020-02-13 01:23:44 -0500
 ---
 
-In a [recent post](/posts/cpp20-class-as-non-type-template-param/), I described a C++20 feature that allows class literals to be used as non-type template parameters. The original feature proposal mentions how this could enable constant expression strings to be passed as template parameters as well (see [P0732R2, section 3.2](http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2018/p0732r2.pdf)).
+In a [recent post](/posts/cpp20-class-as-non-type-template-param/), I described a C++20 feature that allows class literals to be used as non-type template parameters. The original feature proposal mentions how this could [enable constant expression strings to be passed as template parameters as well (see P0732R2, section 3.2)](http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2018/p0732r2.pdf).
 
 This would work by wrapping the constant expression string in a *structural* class literal, which would store its characters in a fixed-length array (e.g. `char[N]`).
 

@@ -15,11 +15,11 @@ Using [GraalVM](https://github.com/oracle/graal)'s `native-image` tool and [GitH
 
 This approach assumes your project is on GitHub.
 
-![Banner containing product logos]({{ "/assets/img/2020-05-09-scala-console-native-github/banner.png" | relative_url }})
+![Logos for GraalVM, GitHub Actions, and Scala united around a native executable icon]({{ "/assets/img/2020-05-09-scala-console-native-github/banner.png" | relative_url }})
 
 ### Step overview
 1. Create a Scala project, using SBT.
-2. Add the `sbt-assembly` plugin. See [Setup](https://github.com/sbt/sbt-assembly#setup) for details.
+2. Add the `sbt-assembly` plugin. See [the official SBT Assembly setup instructions](https://github.com/sbt/sbt-assembly#setup) for details.
 3. Use GitHub Actions Workflow to invoke GraalVM's `native-image` on macOS, Linux, and Windows to transform the JAR into a native executable for each (see below).
 4. (optional) Upload native binaries as a GitHub Release.
 
@@ -43,7 +43,7 @@ In our case, we need it to build our Scala project into a JAR, and then to invok
 
 One limitation of `native-image` is that it's only able to produce native executables for the host on which it's installed. Luckily, GitHub Actions supports multi-platform builds.
 
-In the sections to follow, we'll look at some code snippets from a sample YAML GitHub Actions workflow definition which builds a Scala project to native code for each platform. This sample comes from a small (and fun!) Scala console app called [soctool](https://github.com/kevinhartman/srb2-soctool), and can be viewed in its entirety [here](https://github.com/kevinhartman/srb2-soctool/blob/master/.github/workflows/ci.yml).
+In the sections to follow, we'll look at some code snippets from a [sample YAML GitHub Actions workflow definition which builds a Scala project to native code for each platform, using GraalVM](https://github.com/kevinhartman/srb2-soctool/blob/master/.github/workflows/ci.yml). This sample comes from a small (and fun!) Scala console app called [soctool](https://github.com/kevinhartman/srb2-soctool).
 
 ## Build Scala as JAR
 {% raw  %}
@@ -192,7 +192,7 @@ A few call-outs:
 3. On Windows, `native-image` needs to know about the Visual C++ compiler toolchain. We invoke `vcvars64.bat` to accomplish this first, which prepares the current environment for its use. Note that this time, the resulting executable name will ***automatically*** be terminated with `.exe`.
 
 ## Result
-![Build artifact listing, showing binaries for macOS, Windows, and Linux]({{ "/assets/img/2020-05-09-scala-console-native-github/release.png" | relative_url }})
+![The sample project's GitHub release page, showing resulting binaries for macOS, Windows, and Linux]({{ "/assets/img/2020-05-09-scala-console-native-github/release.png" | relative_url }})
 
 Now, by pushing a Git tag, we'll automatically get a GitHub Release with native executables for macOS, Windows, and Linux :)
 

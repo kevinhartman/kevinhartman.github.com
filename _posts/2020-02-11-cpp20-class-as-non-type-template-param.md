@@ -117,7 +117,7 @@ Further, template parameter objects of the same type with the same value **will 
 # Compiler Compatibility
 The examples provided here have been tested using GCC 9.2.0 (support was added in GCC 9).
 
-Clang's C++2a implementation does not yet support class types as non-type template parameters. The current implementation status of C++2a features in Clang can be found here: <https://clang.llvm.org/cxx_status.html#cxx20>.
+Clang's C++2a implementation does not yet support class types as non-type template parameters. For reference, see the [current implementation status of C++2a features in Clang](https://clang.llvm.org/cxx_status.html#cxx20).
 
 # Relevant Proposals
 This feature was originally proposed in [P0732R2](http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2018/p0732r2.pdf) and was refined by [P1907R1](http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2019/p1907r1.html).
