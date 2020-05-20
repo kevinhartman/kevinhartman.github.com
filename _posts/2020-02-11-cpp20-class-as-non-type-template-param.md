@@ -4,7 +4,7 @@ date: 2020-02-12 09:13:10 -0500
 categories: [Programming Languages]
 tags: [cpp, cpp20]
 seo:
-  date_modified: 2020-02-15 20:46:37 -0500
+  date_modified: 2020-05-20 13:06:32 -0400
   description: Using user-defined literal classes as non-type template parameters
     in C++20.
 ---

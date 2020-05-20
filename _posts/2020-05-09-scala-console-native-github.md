@@ -6,7 +6,7 @@ tags: [Scala, GraalVM, GitHub, CICD, JVM]
 image:
   path: /assets/img/2020-05-09-scala-console-native-github/banner.png
 seo:
-  date_modified: 2020-05-12 11:27:17 -0400
+  date_modified: 2020-05-20 13:06:32 -0400
 ---
 
 If you've ever wanted to write a fancy new console app in Scala, but found yourself torn between engaging your innate desire to write functionally beautiful code, and the perversion of handing your users a JAR file, this post is for you.
