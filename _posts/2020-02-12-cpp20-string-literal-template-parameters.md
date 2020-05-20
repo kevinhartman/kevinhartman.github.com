@@ -4,7 +4,7 @@ date: 2020-02-12 16:45:04 -0500
 categories: [Programming Languages]
 tags: [cpp, cpp20]
 seo:
-  date_modified: 2020-05-20 13:06:32 -0400
+  date_modified: 2020-05-20 13:10:43 -0400
 ---
 
 In a [recent post](/posts/cpp20-class-as-non-type-template-param/), I described a C++20 feature that allows class literals to be used as non-type template parameters. The original feature proposal mentions how this could [enable constant expression strings to be passed as template parameters as well (see P0732R2, section 3.2)](http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2018/p0732r2.pdf).

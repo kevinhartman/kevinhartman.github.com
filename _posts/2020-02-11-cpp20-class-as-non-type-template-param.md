@@ -4,7 +4,7 @@ date: 2020-02-12 09:13:10 -0500
 categories: [Programming Languages]
 tags: [cpp, cpp20]
 seo:
-  date_modified: 2020-05-20 13:06:32 -0400
+  date_modified: 2020-05-20 13:10:43 -0400
 ---
 
 With the introduction of C++20, it's now possible to provide a literal class type (i.e. `constexpr` class) instance as a template parameter.
