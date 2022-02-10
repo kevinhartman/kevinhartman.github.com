@@ -18,7 +18,7 @@ description: >-                        # used by seo meta and the atom feed
 # Replace with your domain, e.g. 'https://username.github.io'
 url: 'https://ctrpeach.io'
 
-author: ctr_peach                  # change to your full name
+author: ctrpeach                  # change to your full name
 
 avatar: /assets/img/profile.jpg   # support internet resources
 
@@ -26,14 +26,14 @@ github:
   username: kevinhartman             # change to your github username
 
 twitter:
-  username: ctr_peach            # change to your twitter username
+  username: ctrpeach            # change to your twitter username
 
 social:
   name: Kevin Hartman                  # it will shows as the copyright owner in Footer
   email: kevin@hart.mn             # change to your email address
   links:
     # The first element serves as the copyright owner's link
-    - https://twitter.com/ctr_peach      # change to your twitter homepage
+    - https://twitter.com/ctrpeach      # change to your twitter homepage
     - https://github.com/kevinhartman       # change to your github homepage
     # Uncomment below to add more social links
     # - https://www.facebook.com/username
@@ -112,7 +112,7 @@ defaults:
         -
           label: Posts
           url: /
-      # author: "@ctr_peach" uncomment this to get jekyll-seo-tag to use it for twitter:creator (but it breaks classic author meta)
+      # author: "@ctrpeach" uncomment this to get jekyll-seo-tag to use it for twitter:creator (but it breaks classic author meta)
   -
     scope:
       path: _drafts
